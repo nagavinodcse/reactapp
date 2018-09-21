@@ -3,3 +3,6 @@
 .metadata
 .settings
 .vscode
+mix-manifest.json
+/fonts
+/images
