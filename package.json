@@ -20,12 +20,13 @@
     "express": "~4.16.0",
     "http-errors": "^1.7.1",
     "laravel-mix": "^2.1.14",
-    "mdbreact": "^4.7.1",
+    "react": "latest",
     "morgan": "~1.9.0",
     "pug": "^2.0.3"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.3.1",
-    "react": "latest"
+    "babel-preset-react": "^6.24.1",
+    "mdbreact": "^4.7.1"
   }
 }
