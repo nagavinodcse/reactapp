@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button, Fa, Card, CardBody, ModalFooter } from 'mdbreact';
-class Login extends React.Component  {
+
+class SignUp extends React.Component  {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,7 +14,7 @@ class Login extends React.Component  {
         this.setState({[evt.target.name]: evt.target.value});
     }
     formSubmit(){
-        axios.post('/users/login',this.state).then((result)=>{
+        axios.post('/users/register',this.state).then((result)=>{
             console.log(result.data);
         });
     }
@@ -22,10 +23,10 @@ class Login extends React.Component  {
             <Container>
                 <section className="form-gradient">
                     <div className="d-flex justify-content-center align-items-center p-0 full-height">
-                        <Card className="p-0 col-12 col-sm-7">
+                        <Card className='col-sm-7 col-12 p-0'>
                             <div className="header pt-3 peach-gradient">
                                 <Row className="d-flex justify-content-center">
-                                    <h3 className="white-text mb-3 pt-3 font-weight-bold">Log in</h3>
+                                    <h3 className="white-text mb-3 pt-3 font-weight-bold">Sign Up</h3>
                                 </Row>
                                 {/*<Row className="mt-2 mb-3 d-flex justify-content-center">
                                     <a className="fa-lg p-2 m-2 fb-ic"><Fa className="fa fa-facebook white-text fa-lg" /></a>
@@ -34,12 +35,14 @@ class Login extends React.Component  {
                                 </Row>*/}
                             </div>
                             <CardBody className="mx-4 mt-4 p-0">
-                                <Input label="Email" value={this.state.email} onBlur={this.handleChange} name="email" group type="email" validate />
-                                <Input label="Password" value={this.state.password} onBlur={this.handleChange} group name="password" type="password" validate containerClass="mb-0"/>
+                                <Input label="Name" value={this.state.name} onBlur={this.handleChange} name="name" group type="text" validate/>
+                                <Input label="Email" value={this.state.email} onBlur={this.handleChange} name="email" group type="email" validate/>
+                                <Input label="Password" value={this.state.password} onBlur={this.handleChange} group name="password" type="password" validate/>
+                                <Input label="Retype password" value={this.state.retype_password} onBlur={this.handleChange} group name="retype_password" type="password" validate containerClass="mb-0"/>
                                 <div className="d-flex align-items-center mb-4 mt-3">
                                     <div className="d-flex align-items-start">
                                         <div className="text-center">
-                                            <Button color="grey" onClick={this.formSubmit.bind(this)} rounded type="button" className="z-depth-1a ml-0">Log in</Button>
+                                            <Button color="grey" onClick={this.formSubmit.bind(this)} rounded type="button" className="z-depth-1a ml-0">Sign Up</Button>
                                         </div>
                                     </div>
                                 </div>
@@ -51,4 +54,5 @@ class Login extends React.Component  {
         );
     }
 };
-export default Login;
+
+export default SignUp;

@@ -2,7 +2,7 @@ window.axios = require('axios');
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import Login from './components/Login';
+import App from './components/App';
 
 
-ReactDom.render(<Login/>,document.getElementById('loginComponent'));
+ReactDom.render(<App/>,document.getElementById('root'));
