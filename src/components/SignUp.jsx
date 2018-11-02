@@ -1,13 +1,15 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button, Fa, Card, CardBody, ModalFooter } from 'mdbreact';
-
 class SignUp extends React.Component  {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
-            password:''
+            password:'',
+            name:'',
+            retype_password:''
         };
+        this.baseState = this.state;
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(evt){
@@ -15,7 +17,8 @@ class SignUp extends React.Component  {
     }
     formSubmit(){
         axios.post('/users/register',this.state).then((result)=>{
-            console.log(result.data);
+            this.props.notify('success','You are Successfully Registered..!');
+            this.setState(this.baseState);
         });
     }
     render() {
@@ -35,17 +38,19 @@ class SignUp extends React.Component  {
                                 </Row>*/}
                             </div>
                             <CardBody className="mx-4 mt-4 p-0">
-                                <Input label="Name" value={this.state.name} onBlur={this.handleChange} name="name" group type="text" validate/>
-                                <Input label="Email" value={this.state.email} onBlur={this.handleChange} name="email" group type="email" validate/>
-                                <Input label="Password" value={this.state.password} onBlur={this.handleChange} group name="password" type="password" validate/>
-                                <Input label="Retype password" value={this.state.retype_password} onBlur={this.handleChange} group name="retype_password" type="password" validate containerClass="mb-0"/>
-                                <div className="d-flex align-items-center mb-4 mt-3">
-                                    <div className="d-flex align-items-start">
-                                        <div className="text-center">
-                                            <Button color="grey" onClick={this.formSubmit.bind(this)} rounded type="button" className="z-depth-1a ml-0">Sign Up</Button>
+                                <form id="signUpForm" method="post" ref="signUpForm">
+                                    <Input label="Name" value={this.state.name} onBlur={this.handleChange} name="name" group type="text" validate/>
+                                    <Input label="Email" value={this.state.email} onBlur={this.handleChange} name="email" group type="email" validate/>
+                                    <Input label="Password" value={this.state.password} onBlur={this.handleChange} group name="password" type="password" validate/>
+                                    <Input label="Retype password" value={this.state.retype_password} onBlur={this.handleChange} group name="retype_password" type="password" validate containerClass="mb-0"/>
+                                    <div className="d-flex align-items-center mb-4 mt-3">
+                                        <div className="d-flex align-items-start">
+                                            <div className="text-center">
+                                                <Button color="grey" onClick={this.formSubmit.bind(this)} rounded type="button" className="z-depth-1a ml-0">Sign Up</Button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </CardBody>
                         </Card>
                     </div>
