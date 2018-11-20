@@ -4,36 +4,33 @@ import SignUp from './SignUp';
 import { Provider } from 'react-redux';
 import { createStore,applyMiddleware } from 'redux';
 import { Button, ToastContainer, toast } from 'mdbreact';
+import ReactNotification from "react-notifications-component";
 const store = createStore(()=>[],{},applyMiddleware());
 class App extends React.Component{
-    notify(type,msg){
-        return () => {
-            switch (type) {
-                case 'info':
-                    toast.info(msg, {
-                        autoClose: 3000
-                    });
-                    break;
-                case 'success':
-                    toast.success(msg, {
-                        position: "top-right",
-                    });
-                    break;
-                case 'warning':
-                    toast.warn(msg);
-                    break;
-                case 'error':
-                    toast.error(msg);
-                    break;
-            }
-        };
+    constructor(props){
+        super(props);
+        this.addNotification = this.addNotification.bind(this);
+        this.notificationDOMRef = React.createRef();
+    }
+    addNotification(type,msg){
+        this.notificationDOMRef.current.addNotification({
+            message: msg,
+            type: type,
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animated", "flipInY"],
+            animationOut: ["animated", "flipOutY"],
+            dismiss: { duration: 5000 },
+            dismissable: { click: true }
+        });
     };
     render(){
         return (
             <Provider store={store}>
                 <div className='col-12 row'>
-                    <div className='col-sm-12 col-md-6 bg-indigo full-height'><SignUp notify={this.notify}/></div>
-                    <div className='col-sm-12 col-md-6 full-height'><Login notify={this.notify}/></div>
+                    <ReactNotification ref={this.notificationDOMRef} />
+                    <div className='col-sm-12 col-md-6 bg-indigo full-height'><SignUp notify={this.addNotification}/></div>
+                    <div className='col-sm-12 col-md-6 full-height'><Login notify={this.addNotification}/></div>
                 </div>
             </Provider>
         )

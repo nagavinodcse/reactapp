@@ -13,8 +13,10 @@ class Login extends React.Component  {
         this.setState({[evt.target.name]: evt.target.value});
     }
     formSubmit(){
-        axios.post('/users/login',this.state).then((result)=>{
-            console.log(result.data);
+        axios.post('/users/login',this.state).then(()=>{
+            location.href = '/users';
+        }).catch((error)=>{
+            this.props.notify('danger',error.response.data.message);
         });
     }
     render() {

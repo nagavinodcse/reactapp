@@ -16,10 +16,21 @@ class SignUp extends React.Component  {
         this.setState({[evt.target.name]: evt.target.value});
     }
     formSubmit(){
-        axios.post('/users/register',this.state).then((result)=>{
+        axios.post('/users/register',this.state).then(()=>{
             this.props.notify('success','You are Successfully Registered..!');
             this.setState(this.baseState);
+            this.formReset();
+        }).catch((error)=>{
+            this.props.notify('danger',error.response.data.message);
+            this.setState(this.baseState);
+            this.formReset();
         });
+    }
+    formReset(){
+        for(let field in this.state){
+            document.querySelector('input[name="'+field+'"]').value = '';
+            document.querySelector('input[name="'+field+'"]').dispatchEvent(change);
+        }
     }
     render() {
         return(
@@ -39,10 +50,10 @@ class SignUp extends React.Component  {
                             </div>
                             <CardBody className="mx-4 mt-4 p-0">
                                 <form id="signUpForm" method="post" ref="signUpForm">
-                                    <Input label="Name" value={this.state.name} onBlur={this.handleChange} name="name" group type="text" validate/>
-                                    <Input label="Email" value={this.state.email} onBlur={this.handleChange} name="email" group type="email" validate/>
-                                    <Input label="Password" value={this.state.password} onBlur={this.handleChange} group name="password" type="password" validate/>
-                                    <Input label="Retype password" value={this.state.retype_password} onBlur={this.handleChange} group name="retype_password" type="password" validate containerClass="mb-0"/>
+                                    <Input label="Name" value="" onBlur={this.handleChange} name="name" group type="text" validate/>
+                                    <Input label="Email" value="" onBlur={this.handleChange} name="email" group type="email" validate/>
+                                    <Input label="Password" value="" onBlur={this.handleChange} group name="password" type="password" validate/>
+                                    <Input label="Retype password" value="" onBlur={this.handleChange} group name="retype_password" type="password" validate containerClass="mb-0"/>
                                     <div className="d-flex align-items-center mb-4 mt-3">
                                         <div className="d-flex align-items-start">
                                             <div className="text-center">

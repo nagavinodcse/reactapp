@@ -3,7 +3,7 @@ let router = express.Router();
 let bcrypt = require('bcryptjs');
 let jwt = require('jsonwebtoken');
 let passport = require('passport');
-let keys = require('../config/keys')
+let keys = require('../config/keys');
 //Load Model
 const User = require('../models/User');
 /* GET users listing. */
@@ -14,7 +14,7 @@ router.post('/register',(req,res)=>{
     User.findOne({ email: req.body.email })
         .then(user =>{
             if(user){
-                return res.status(422).json({email : "Email already Exists."});
+                return res.status(422).json({message : "You are already registered."});
             }else{
                 const newUser = new User({
                     name:req.body.name,
@@ -37,19 +37,19 @@ router.post('/login', (req, res) => {
     const email = req.body.email, password = req.body.password;
     User.findOne({email}).then(user => {
         if (!user) {
-            return res.status(422).json({email: "User not found."});
+            return res.status(422).json({message: "User not found."});
         }
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
-                let payload = {id:user.id,name:user.name}
-                jwt.sign(payload,keys.secretOrKey,{expiresIn:3600},(err,token)=>{
+                let payload = {id:user.id,name:user.name};
+                jwt.sign(payload,keys.secretOrKey,{expiresIn:"1h"},(err,token)=>{
                     res.json({
                         success:true,
                         token : 'Bearer '+token
                     });
                 })
             } else {
-                return res.status(422).json({password: 'Password Incorrect.'});
+                return res.status(422).json({message: 'Password Incorrect.'});
             }
         });
     });
