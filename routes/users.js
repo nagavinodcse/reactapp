@@ -8,26 +8,26 @@ let keys = require('../config/keys');
 const User = require('../models/User');
 /* GET users listing. */
 router.get('/', (req, res) => {
-    res.render('users', { title: 'Users' });
+    res.render('users', {title: 'Users'});
 });
-router.post('/register',(req,res)=>{
-    User.findOne({ email: req.body.email })
-        .then(user =>{
-            if(user){
-                return res.status(422).json({message : "You are already registered."});
-            }else{
+router.post('/register', (req, res) => {
+    User.findOne({email: req.body.email})
+        .then(user => {
+            if (user) {
+                return res.status(422).json({message: "You are already registered."});
+            } else {
                 const newUser = new User({
-                    name:req.body.name,
-                    email:req.body.email,
-                    password:req.body.password
+                    name: req.body.name,
+                    email: req.body.email,
+                    password: req.body.password
                 });
-                bcrypt.genSalt(10,(err,salt)=>{
-                    bcrypt.hash(newUser.password,salt,(err,hash)=>{
-                        if(err) throw err;
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if (err) throw err;
                         newUser.password = hash;
                         newUser.save()
-                            .then(user=>res.json(user))
-                            .catch(err=>console.log(err));
+                            .then(user => res.json(user))
+                            .catch(err => console.log(err));
                     })
                 })
             }
@@ -41,11 +41,11 @@ router.post('/login', (req, res) => {
         }
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
-                let payload = {id:user.id,name:user.name};
-                jwt.sign(payload,keys.secretOrKey,{expiresIn:"1h"},(err,token)=>{
+                let payload = {id: user.id, name: user.name};
+                jwt.sign(payload, keys.secretOrKey, {expiresIn: "1h"}, (err, token) => {
                     res.json({
-                        success:true,
-                        token : 'Bearer '+token
+                        success: true,
+                        token: 'Bearer ' + token
                     });
                 })
             } else {

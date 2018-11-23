@@ -21,26 +21,26 @@
     "cookie-parser": "~1.4.3",
     "cross-env": "^5.2.0",
     "debug": "^3.1.0",
-    "express": "~4.16.0",
+    "express": "^4.16.4",
     "http-errors": "^1.7.1",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^8.4.0",
     "laravel-mix": "^2.1.14",
-    "mongoose": "^5.2.18",
+    "mongoose": "^5.3.13",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pug": "^2.0.3",
-    "react": "latest",
-    "react-notifications-component": "^0.1.1",
-    "react-redux": "^5.0.7",
-    "redux": "^4.0.0",
+    "react": "^16.6.3",
+    "react-notifications-component": "^1.0.0",
+    "react-redux": "^5.1.1",
+    "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "validator": "^10.8.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.3.1",
     "babel-preset-react": "^6.24.1",
-    "mdbreact": "^4.7.1",
-    "nodemon": "^1.18.4"
+    "mdbreact": "^4.8.3",
+    "nodemon": "^1.18.6"
   }
 }
